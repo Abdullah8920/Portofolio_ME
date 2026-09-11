@@ -1,0 +1,394 @@
+import { useState, useEffect, useRef } from "react";
+import "./Portfolio.css";
+
+const socialLinks = [
+    { icon: "fa-brands fa-github", href: "#", label: "GitHub" },
+    { icon: "fa-brands fa-discord", href: "#", label: "Discord" },
+    { icon: "fa-brands fa-linkedin", href: "#", label: "LinkedIn" },
+    { icon: "fa-brands fa-instagram", href: "#", label: "Instagram" },
+];
+
+const navLinks = [
+    { icon: "fa-solid fa-house", label: "home", href: "#home" },
+    { icon: "fa-regular fa-address-card", label: "about", href: "#about" },
+    { icon: "fa-solid fa-code", label: "skiils", href: "#skills" },
+    { icon: "fa-regular fa-folder-open", label: "project", href: "#projects" },
+    { icon: "fa-regular fa-envelope", label: "contacts", href: "#contacts" },
+];
+
+const descLines = [
+    "I am a beginner developer learning HTML and CSS to build and design web pages.",
+    "I enjoy creating simple layouts and improving my skills in styling with CSS.",
+    "Now, I am starting to learn JavaScript to make my websites more interactive and dynamic.",
+    "Step by step, I am growing my knowledge to become a skilled front-end developer.",
+];
+
+const loadingIcons = [
+    "fa-brands fa-github",
+    "fa-brands fa-facebook",
+    "fa-brands fa-instagram",
+];
+
+export default function Portfolio() {
+    const [activeNav, setActiveNav] = useState("home");
+    const [loadingDone, setLoadingDone] = useState(false);
+    const [showContent, setShowContent] = useState(false);
+    const [fallen, setFallen] = useState({
+        loadingText: false,
+        mainIcon: false,
+        icon0: false, icon1: false, icon2: false,
+        designerText: false,
+    });
+
+    const loadingRef = useRef(null);
+
+    useEffect(() => {
+        const timers = [
+            setTimeout(() => setFallen(s => ({ ...s, loadingText: true })), 100),
+            setTimeout(() => setFallen(s => ({ ...s, mainIcon: true })), 900),
+            setTimeout(() => setFallen(s => ({ ...s, icon0: true })), 1700),
+            setTimeout(() => setFallen(s => ({ ...s, icon1: true })), 2100),
+            setTimeout(() => setFallen(s => ({ ...s, icon2: true })), 2500),
+            setTimeout(() => setFallen(s => ({ ...s, designerText: true })), 2900),
+            setTimeout(() => {
+                if (loadingRef.current) loadingRef.current.style.opacity = "0";
+                setTimeout(() => { setLoadingDone(true); setShowContent(true); }, 500);
+            }, 4000),
+        ];
+        return () => timers.forEach(clearTimeout);
+    }, []);
+
+    const fc = (key) => fallen[key] ? "fall-anim" : "hidden-el";
+
+    return (
+        <>
+            {/* Loading Screen */}
+            {!loadingDone && (
+                <div className="loading-screen" ref={loadingRef}>
+                    <h1 className={fc("loadingText")}>MY PROFILE</h1>
+                    <i className={`fa-solid fa-laptop-code fa-5x main-icon ${fc("mainIcon")}`} />
+                    <div className="sub-icons">
+                        {loadingIcons.map((icon, i) => (
+                            <i key={icon} className={`${icon} fa-2x ${fc(`icon${i}`)}`} />
+                        ))}
+                    </div>
+                    <h2 className={fc("designerText")}>Welcome to My Portfolio</h2>
+                </div>
+            )}
+
+            {/* Main Content */}
+            <div className={`main-content ${showContent ? "visible" : ""}`}>
+
+                {/* Navbar */}
+                <header>
+                    <div className="nav-wrapper">
+                        <ul className="nav-list">
+                            {navLinks.map(({ icon, label, href }) => (
+                                <li
+                                    key={label}
+                                    className={`nav-item ${activeNav === label ? "active-nav" : ""}`}
+                                    onClick={() => setActiveNav(label)}
+                                >
+                                    <i className={icon} />
+                                    <a href={href} onClick={(e) => e.stopPropagation()}>{label}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </header>
+
+                {/* Home Section */}
+                <section id="home" className="home">
+                    <div className="home-container">
+                        <div className="info">
+
+                            <h1>Hi, I'm Abdullah</h1>
+                            <h2>Frontend Developer</h2>
+
+                            <div className="info-p">
+                                {descLines.map((line, i) => <p key={i}>{line}</p>)}
+                            </div>
+
+                            <div className="btn-download-wrap">
+                                <button className="btn-download">
+                                    <i className="fa-regular fa-circle-down" />
+                                    Download CV
+                                </button>
+                            </div>
+
+                            <div className="divider-wrap">
+                                <hr />
+                            </div>
+
+                            <div className="social-row">
+                                <p className="connect-label">Connect with me:</p>
+                                <ul className="social-list">
+                                    {socialLinks.map(({ icon, href, label }) => (
+                                        <li key={label}>
+                                            <a href={href} aria-label={label} className="social-icon-link">
+                                                <i className={icon} />
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </>
+    );
+}
+
+
+css 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #d3d3d3;
+    font-family: sans-serif;
+}
+
+/* ── Loading Screen ── */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: #00f0ff;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen h1 {
+    margin: 20px 0;
+    font-size: 2rem;
+    letter-spacing: 0.15em;
+}
+
+.loading-screen h2 {
+    margin: 20px 0;
+    font-family: "Playfair Display", serif;
+}
+
+.loading-screen .main-icon {
+    margin: 20px 0;
+}
+
+.sub-icons {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.hidden-el {
+    opacity: 0;
+}
+
+@keyframes fall {
+    0% {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fall-anim {
+    animation: fall 0.9s forwards;
+}
+
+/* ── Main Content ── */
+.main-content {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.main-content.visible {
+    opacity: 1;
+}
+
+/* ── Header / Navbar ── */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin: 15px 20px;
+}
+
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 25px;
+    border-radius: 25px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background 0.3s, padding 0.3s;
+}
+
+.nav-item a {
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    color: #000;
+}
+
+.nav-item i {
+    color: #000;
+}
+
+.nav-item:hover,
+.nav-item.active-nav {
+    background-color: #000;
+    padding: 10px 13px;
+}
+
+.nav-item:hover a,
+.nav-item:hover i,
+.nav-item.active-nav a,
+.nav-item.active-nav i {
+    color: white;
+}
+
+/* ── Home Section ── */
+.home {
+    margin: 160px 200px;
+}
+
+.home-container {
+    display: flex;
+    gap: 3rem;
+}
+
+.info h1 {
+    font-size: 70px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.info h2 {
+    font-size: 36px;
+    font-family: "Playfair Display", serif;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.info-p {
+    color: #222;
+    font-family: "DM Sans", sans-serif;
+    padding: 20px 20px 20px 4px;
+    line-height: 1.7;
+}
+
+.info-p p {
+    padding-bottom: 5px;
+}
+
+/* ── Download Button ── */
+.btn-download-wrap {
+    padding-bottom: 30px;
+}
+
+.btn-download {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.3s;
+}
+
+.btn-download:hover {
+    background: #222;
+}
+
+/* ── Divider ── */
+.divider-wrap {
+    padding-bottom: 30px;
+}
+
+.divider-wrap hr {
+    width: 90%;
+    border-color: #aaa;
+}
+
+/* ── Social Links ── */
+.social-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-row .connect-label {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+}
+
+.social-list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-size: 20px;
+}
+
+.social-icon-link {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.2s;
+}
+
+.social-icon-link i {
+    margin-right: 8px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.social-icon-link:hover {
+    color: #007bff;
+}
+
+.social-icon-link:hover i {
+    transform: translateY(-5px);
+}

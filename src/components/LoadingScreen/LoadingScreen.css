@@ -1,0 +1,59 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: #00f0ff;
+  text-align: center;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen h1 {
+  margin: 20px 0;
+  font-size: 2rem;
+  letter-spacing: 0.15em;
+}
+
+.loading-screen h2 {
+  margin: 20px 0;
+  font-family: "Playfair Display", serif;
+}
+
+.loading-screen .main-icon {
+  margin: 20px 0;
+}
+
+.sub-icons {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.hidden-el {
+  opacity: 0;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fall-anim {
+  animation: fall 0.9s forwards;
+}
