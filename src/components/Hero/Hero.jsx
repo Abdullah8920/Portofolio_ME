@@ -72,7 +72,7 @@ export default function Hero() {
             <button
               type="button"
               className={styles.btnSecondary}
-              onClick={() => window.open("/abdullah-resume.pdf", "_blank")}
+              onClick={() => window.open("/abdullahcv.pdf", "_blank")}
             >
               <Download size={18} aria-hidden="true" />
               <span> MY CV</span>
