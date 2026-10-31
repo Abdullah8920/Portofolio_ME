@@ -52,8 +52,8 @@ export const PROJECTS = [
 
 
   {
-    title: "Saylani HCM Lite — HR Attendance System",
-    description: "A full-stack human resources platform for employee management, attendance, leave workflows, payroll, analytics, and role-based access.",
+    title: "HCM Enterprise with AI Assistant",
+    description: "A full-stack human resources platform with an AI assistant interface, employee management, attendance, leave workflows, payroll, analytics, and role-based access.",
     technologies: ["React", "TypeScript", "Vite", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/Abdullah8920/HR-Attendance-",
     demo: "https://frontend-seven-ivory-92.vercel.app/",
@@ -65,4 +65,5 @@ export const LOADING_ICONS = [
   "fa-brands fa-facebook",
   "fa-brands fa-instagram",
 ];
+
 
