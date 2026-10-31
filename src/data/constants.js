@@ -51,10 +51,18 @@ export const PROJECTS = [
 
 
 
-];
+  {
+    title: "Saylani HCM Lite — HR Attendance System",
+    description: "A full-stack human resources platform for employee management, attendance, leave workflows, payroll, analytics, and role-based access.",
+    technologies: ["React", "TypeScript", "Vite", "Node.js", "Express", "MongoDB"],
+    github: "https://github.com/Abdullah8920/HR-Attendance-",
+    demo: "https://frontend-seven-ivory-92.vercel.app/",
+    image: "/hr-attendance-preview.jpg",
+  },];
 
 export const LOADING_ICONS = [
   "fa-brands fa-github",
   "fa-brands fa-facebook",
   "fa-brands fa-instagram",
 ];
+
